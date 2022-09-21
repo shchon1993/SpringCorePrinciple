@@ -20,6 +20,13 @@ public class AppConfig {
     //공연 기획자와 동일한 역할
     //구현 클래스를 선택한다. 배역에 맞는 담당 배우를 선태한다. 애플리케이션이 어떻게 동작해야 할지 전체 구성을 책임진다.
 
+    //IoC 제어의 역전
+    //OderServiceImpl도 여기서 생성. Orderservice 인터페이스이 다른 구현 객체를 생성하고 실행할 수 있다.
+    //OderServiceImpl에서는 필요한 인터페이스들이 호출 되지만 어떤 구현 객체들이 실행될지 모름.
+    //외부 즉 AppConfig에서 프로그램의 제어 흐름을 관리한다.
+
+    //의존관계 주입
+
 
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
