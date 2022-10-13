@@ -9,7 +9,11 @@ import hello.core.memberr.MemberServiceImpl;
 import hello.core.memberr.MemmoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class AppConfig {
 
     //외부 즉,AppConfig에서 생성자를 통해서 어떤 구현 객체를 주입할지 결정한다.
@@ -27,20 +31,23 @@ public class AppConfig {
 
     //의존관계 주입
 
-
+    @Bean
     public MemberService memberService(){
         return new MemberServiceImpl(memberRepository());
         //MemberServiceImpl 입장에서 보면 의존관계를 마치 외부에서 주입해주는 것 같다고해서 DI 의존관계 주입 또는 의존성 주입이라고 한다.
     }
 
-    private MemberRepository memberRepository(){
+    @Bean
+    public MemberRepository memberRepository(){
         return new MemmoryMemberRepository();
     }
 
+    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
+    @Bean
     public DiscountPolicy discountPolicy(){
         //return new FixDiscountPolicy();
         return new RateDiscountPolicy();
